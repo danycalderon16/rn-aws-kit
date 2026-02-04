@@ -20,7 +20,7 @@ export function ServiceCard({
   marginBottom = false,
 }: ServiceCardProps) {
   return (
-    <Link href={href} asChild>
+    <Link href={href as any} asChild>
       <Pressable className={marginBottom ? 'mb-4 active:opacity-80' : 'active:opacity-80'}>
         <View className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
           <View className={`w-12 h-12 ${bgColor} rounded-full items-center justify-center mb-3`}>

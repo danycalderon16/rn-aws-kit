@@ -1,4 +1,4 @@
-import { ServiceCard } from '@/components/ServiceCard';
+import { ServiceCard } from '@/src/components/ServiceCard';
 import { Text, View } from 'react-native';
 
 export default function HomeScreen() {
