@@ -32,6 +32,8 @@ export function useDeleteNote() {
         },
         onError: (error) => {
             console.error('Error deleting note:', error);
+            // Even if server returns error, the note might be deleted, so refresh
+            queryClient.invalidateQueries({queryKey: ['notes']})
         }
     })
 }

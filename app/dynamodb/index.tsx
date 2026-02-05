@@ -20,17 +20,23 @@ export default function DynamoDBScreen() {
    };
 
    const handleNoteLongPress = (item: any) => {
-      Alert.alert("Delete item", `Are you sure to delete this item "${item.id}"?`,
-         [
-            {
-               text: "Cancel",
-            },
-            {
-               text: "Delete",
-               onPress: () => {handleDeleteNote(item.id)}
-            }
-         ]
-      )
+      if (Platform.OS === 'web') {
+         if (confirm(`Are you sure to delete this item "${item.id}"?`)) {
+            handleDeleteNote(item.id);
+         }
+      } else {
+         Alert.alert("Delete item", `Are you sure to delete this item "${item.id}"?`,
+            [
+               {
+                  text: "Cancel",
+               },
+               {
+                  text: "Delete",
+                  onPress: () => {handleDeleteNote(item.id)}
+               }
+            ]
+         )
+      }
    };
 
    const handleCreateNote = async () => {
@@ -43,7 +49,15 @@ export default function DynamoDBScreen() {
    };
 
    const handleDeleteNote = (id: string) => {
-      deleteNoteMutation.mutate(id);
+      console.log('Deleting note with id:', id);
+      deleteNoteMutation.mutate(id, {
+         onSuccess: () => {
+            console.log('Note deleted successfully');
+         },
+         onError: (error) => {
+            console.error('Failed to delete note:', error);
+         }
+      });
    };
 
    return (
